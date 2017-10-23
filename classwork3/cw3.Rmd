@@ -1,0 +1,25 @@
+---
+title: "cw3"
+author: "Kate Patrakova"
+date: '23 октября 2017 г '
+output: html_document
+---
+
+#Загрузите данные о землятресениях
+```{r}
+anss <- readLines("https://raw.githubusercontent.com/SergeyMirvoda/MD-DA-2017/master/data/earthquakes_2011.html", warn=FALSE)
+
+```
+
+#Выберите строки, которые содержат данные с помощью регулярных выражений и функции grep
+```{r}
+#data<-strsplit(anss[grep(pattern="^[^<.>]" , anss)], ",")
+#или
+data<-grep("NEI",anss)
+```
+
+#Проверьте что все строки (all.equal) в результирующем векторе подходят под шаблон. 
+```{r}
+all.equal(data, anss)
+```
+
