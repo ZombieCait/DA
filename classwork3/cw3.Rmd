@@ -13,13 +13,13 @@ anss <- readLines("https://raw.githubusercontent.com/SergeyMirvoda/MD-DA-2017/ma
 
 #Выберите строки, которые содержат данные с помощью регулярных выражений и функции grep
 ```{r}
-#data<-strsplit(anss[grep(pattern="^[^<.>]" , anss)], ",")
+data<-strsplit(anss[grep(pattern="^[^<.>]" , anss)], ",")
 #или
-data<-grep("NEI",anss)
+#data<-grep("NEI",anss) #без заголовка
 ```
 
 #Проверьте что все строки (all.equal) в результирующем векторе подходят под шаблон. 
 ```{r}
-all.equal(data, anss)
+all.equal(data,grep(pattern="^[^<.>]",anss));
 ```
 
