@@ -28,54 +28,38 @@ estimate.scaling.exponent <- function(a, y0=6611, response=gmp$pcgmp,
 
 #Пример вызова с начальным занчением a
 ```{r}
-estimate.scaling.exponent(0.15)
+a.start<-estimate.scaling.exponent(0.15)
+a.start
 ```
 
 
 #С помошью полученного коэффициента постройте кривую (функция curve) зависимости
 ```{r}
+curve((y0=6611)*x^estimate.scaling.exponent(0.15)$a,gmp$pop,xlab='Население',y, ylab='Доход')
 
-}
 ```
 
 #Удалите точку из набора исходных данных случайным образом, как изменилось статистическая оценка коэффициента a?
 ```{r}
-plot.with.dif.point.and.a <- function(a = 0.15,clear.row = 0){
-
-    if(clear.row==1){
-    row.for.clear <- sample.int(nrow(gmp),1)
-    Select <-  which(!(1:nrow(gmp)) %in% row.for.clear)
-    gmp <<-gmp[Select,]
-  }
-  gmp$predicted <- 6611*(gmp$pop)^estimate.scaling.exponent(a)[[1]]
-  print(paste("a:",estimate.scaling.exponent(a)[[1]],"iterations:", estimate.scaling.exponent(a)[[2]]))
-  lines(gmp$pop, gmp$predicted, col = "red")
-}
+point<-round(runif(1,max=365))
+gmp<-gmp[-point,]
+a.after.del<-estimate.scaling.exponent(0.15)
+a.start$a-a.after.del$a #а незначительно уменьшилось
 ```
 
 #Запустите оценку несколько раз с разных стартовых точек. Как изменилось значение a?
 ```{r}
-plot(pcgmp~pop, data=gmp, xlab="Население", log="xy",ylab="Доход на душу населения ($/человеко-год)", main="Метрополии США, 2006") 
-      plot.with.dif.point.and.a(0.3)
-      plot(pcgmp~pop, data=gmp, xlab="Население", log="xy",ylab="Доход на душу населения ($/человеко-год)", main="Метрополии США, 2006") 
-      plot.with.dif.point.and.a(0.25)
-      plot(pcgmp~pop, data=gmp, xlab="Население", log="xy",ylab="Доход на душу населения ($/человеко-год)", main="Метрополии США, 2006") 
-      plot.with.dif.point.and.a(0.2)
-      plot(pcgmp~pop, data=gmp, xlab="Население", log="xy",ylab="Доход на душу населения ($/человеко-год)", main="Метрополии США, 2006") 
-      plot.with.dif.point.and.a(0.15)
-      plot(pcgmp~pop, data=gmp, xlab="Население", log="xy",ylab="Доход на душу населения ($/человеко-год)", main="Метрополии США, 2006") 
-      plot.with.dif.point.and.a(0.1)
-      plot(pcgmp~pop, data=gmp, xlab="Население", log="xy",ylab="Доход на душу населения ($/человеко-год)", main="Метрополии США, 2006") 
-      plot.with.dif.point.and.a(0.05)
-      plot(pcgmp~pop, data=gmp, xlab="Население", log="xy",ylab="Доход на душу населения ($/человеко-год)", main="Метрополии США, 2006") 
-      plot.with.dif.point.and.a(0.12)
-      
-plot(pcgmp~pop, data=gmp, xlab="Население", log="xy",ylab="Доход на душу населения ($/человеко-год)", main="Метрополии США, 2006")      
-      for(i in 1:365){
-        print(paste("Количество точек", nrow(gmp)))
-        plot.with.dif.point.and.a(0.12,1)
-      }
-    
+estimate.scaling.exponent(0)
+estimate.scaling.exponent(0.1)
+estimate.scaling.exponent(0.15)
+estimate.scaling.exponent(0.17)
+estimate.scaling.exponent(0.18)
+estimate.scaling.exponent(0.2)
+estimate.scaling.exponent(0.25)
 
 ```
+
+
+Выводы: При оценке с разных стартовых точек, было обнаружено, что полученное значение a не меняется, а количество итераций для достижения сходимости меньше, когда стартовое значение ближе к исходному. Наименьшее количество иттераций при стартовом значении 0.17.
+
 
