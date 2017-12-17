@@ -1,10 +1,10 @@
 ---
 title: "lab5"
 author: "Kate Patrakova"
-date: '6 декабря 2017 г '
+date: '6 РґРµРєР°Р±СЂСЏ 2017 Рі '
 output: html_document
 ---
-1.Пользуясь примером из лекции файл (5.0.R) проанализируйте данные о возрасте и физ. характеристиках молюсков
+1.РџРѕР»СЊР·СѓСЏСЃСЊ РїСЂРёРјРµСЂРѕРј РёР· Р»РµРєС†РёРё С„Р°Р№Р» (5.0.R) РїСЂРѕР°РЅР°Р»РёР·РёСЂСѓР№С‚Рµ РґР°РЅРЅС‹Рµ Рѕ РІРѕР·СЂР°СЃС‚Рµ Рё С„РёР·. С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРєР°С… РјРѕР»СЋСЃРєРѕРІ
 #https://archive.ics.uci.edu/ml/datasets/abalone
 
 ```{r}
@@ -18,33 +18,33 @@ colnames(data) <- c("sex", "length", "diameter", "height",
 colnames(data)
 data$sex <- factor(c("Female", "Infant", "Male")[data$sex])
 par(mfrow=c(1,3)) 
-hist(data$diameter, main = "Диаметр, мм")
-hist(data$height, main = "Высота, мм")
-hist(data$whole_weight, main = "Полный вес, гр")
+hist(data$diameter, main = "Р”РёР°РјРµС‚СЂ, РјРј")
+hist(data$height, main = "Р’С‹СЃРѕС‚Р°, РјРј")
+hist(data$whole_weight, main = "РџРѕР»РЅС‹Р№ РІРµСЃ, РіСЂ")
 ```
 
 
-2. Видим ассиметрию https://en.wikipedia.org/wiki/Skewness
-и выбросы (от них нужно избавиться)
-Визулизируем возможные зависимости
+2. Р’РёРґРёРј Р°СЃСЃРёРјРµС‚СЂРёСЋ https://en.wikipedia.org/wiki/Skewness
+Рё РІС‹Р±СЂРѕСЃС‹ (РѕС‚ РЅРёС… РЅСѓР¶РЅРѕ РёР·Р±Р°РІРёС‚СЊСЃСЏ)
+Р’РёР·СѓР»РёР·РёСЂСѓРµРј РІРѕР·РјРѕР¶РЅС‹Рµ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё
 ```{r}
 par(mfrow=c(1,2)) 
-plot(data$diameter, data$whole_weight,'p',main = "Зависимость веса от диаметра")
-plot(data$height, data$whole_weight,'p',main = "Зависимость веса от высоты")
+plot(data$diameter, data$whole_weight,'p',main = "Р—Р°РІРёСЃРёРјРѕСЃС‚СЊ РІРµСЃР° РѕС‚ РґРёР°РјРµС‚СЂР°")
+plot(data$height, data$whole_weight,'p',main = "Р—Р°РІРёСЃРёРјРѕСЃС‚СЊ РІРµСЃР° РѕС‚ РІС‹СЃРѕС‚С‹")
 
 ```
 
 
-4. Хорошо видна зависимость, нужно её исследовать, построить линейные модели при помощи функции lm, посмотреть их характеристики
+4. РҐРѕСЂРѕС€Рѕ РІРёРґРЅР° Р·Р°РІРёСЃРёРјРѕСЃС‚СЊ, РЅСѓР¶РЅРѕ РµС‘ РёСЃСЃР»РµРґРѕРІР°С‚СЊ, РїРѕСЃС‚СЂРѕРёС‚СЊ Р»РёРЅРµР№РЅС‹Рµ РјРѕРґРµР»Рё РїСЂРё РїРѕРјРѕС‰Рё С„СѓРЅРєС†РёРё lm, РїРѕСЃРјРѕС‚СЂРµС‚СЊ РёС… С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРєРё
 
-Линейная модель зависимости веса от высоты
+Р›РёРЅРµР№РЅР°СЏ РјРѕРґРµР»СЊ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РІРµСЃР° РѕС‚ РІС‹СЃРѕС‚С‹
 ```{r}
 linear.model.wh<-lm(whole_weight~height, data=data)
 linear.model.wh
 summary(linear.model.wh)
 plot(linear.model.wh)
 ```
-Линейная модель зависимости веса от диаметра
+Р›РёРЅРµР№РЅР°СЏ РјРѕРґРµР»СЊ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РІРµСЃР° РѕС‚ РґРёР°РјРµС‚СЂР°
 ```{r}
 linear.model.wd<-lm(whole_weight~diameter, data=data)
 linear.model.wd
@@ -52,9 +52,9 @@ summary(linear.model.wd)
 plot(linear.model.wd)
 ```
 
-5.Избавиться от выборосов, построить ещё модели и проверить их
+5.РР·Р±Р°РІРёС‚СЊСЃСЏ РѕС‚ РІС‹Р±РѕСЂРѕСЃРѕРІ, РїРѕСЃС‚СЂРѕРёС‚СЊ РµС‰С‘ РјРѕРґРµР»Рё Рё РїСЂРѕРІРµСЂРёС‚СЊ РёС…
 
-Чистка от выбросов для модели зависимости веса от диаметра
+Р§РёСЃС‚РєР° РѕС‚ РІС‹Р±СЂРѕСЃРѕРІ РґР»СЏ РјРѕРґРµР»Рё Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РІРµСЃР° РѕС‚ РґРёР°РјРµС‚СЂР°
 ```{r}
 
 data.noout<-data[data$height<0.4&data$height>0.03&data$diameter>0.1,]
@@ -64,7 +64,7 @@ plot(linear.model.wd.emissions)
 
 ```
 
-Чистка от выбросов для модели зависимости веса от высоты
+Р§РёСЃС‚РєР° РѕС‚ РІС‹Р±СЂРѕСЃРѕРІ РґР»СЏ РјРѕРґРµР»Рё Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РІРµСЃР° РѕС‚ РІС‹СЃРѕС‚С‹
 ```{r}
 data.noout<-data[data$height<0.4&data$height>0.05,]
 linear.model.wh.emissions<-lm(whole_weight~height,data=data.noout)
@@ -72,7 +72,7 @@ linear.model.wh.emissions
 plot(linear.model.wh.emissions)
 ```
 
-Линейная модель зависимости веса от высоты и диаметра
+Р›РёРЅРµР№РЅР°СЏ РјРѕРґРµР»СЊ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РІРµСЃР° РѕС‚ РІС‹СЃРѕС‚С‹ Рё РґРёР°РјРµС‚СЂР°
 
 ```{r}
 linear.model.w.hd<-lm(whole_weight~+height+diameter,data=data.noout)
@@ -81,7 +81,7 @@ summary(linear.model.w.hd)
 plot(linear.model.w.hd)
 ```
 
-Линейная модель Всё в одном 
+Р›РёРЅРµР№РЅР°СЏ РјРѕРґРµР»СЊ Р’СЃС‘ РІ РѕРґРЅРѕРј 
 ```{r}
 linear.model.all<-lm(whole_weight~.-shucked_weight-viscera_weight-shell_weight,data=data.noout)
 linear.model.all
@@ -90,7 +90,7 @@ plot(linear.model.all)
 
 ```
 
-6. Разделить массив данных на 2 случайные части
+6. Р Р°Р·РґРµР»РёС‚СЊ РјР°СЃСЃРёРІ РґР°РЅРЅС‹С… РЅР° 2 СЃР»СѓС‡Р°Р№РЅС‹Рµ С‡Р°СЃС‚Рё
 ```{r}
 odds <- seq(1, nrow(data.noout), by=2)
 data.in <- data.noout[odds,]
@@ -98,7 +98,7 @@ data.out <- data.noout[-odds,]
 ```
 
 
-7. Подогнать модель по первой части
+7. РџРѕРґРѕРіРЅР°С‚СЊ РјРѕРґРµР»СЊ РїРѕ РїРµСЂРІРѕР№ С‡Р°СЃС‚Рё
 
 ```{r}
 linear.model.all.half<-lm(whole_weight~.-shucked_weight-viscera_weight-shell_weight,data=data.in)
@@ -108,20 +108,20 @@ plot(linear.model.all.half)
 ```
 
 
-8. спрогнозировать (функция predict) значения во второй части
+8. СЃРїСЂРѕРіРЅРѕР·РёСЂРѕРІР°С‚СЊ (С„СѓРЅРєС†РёСЏ predict) Р·РЅР°С‡РµРЅРёСЏ РІРѕ РІС‚РѕСЂРѕР№ С‡Р°СЃС‚Рё
 ```{r}
 data.predict.out <- predict (linear.model.all.half, data.out)
 plot (data.out$whole_weight, data.predict.out)
 ```
 
-9. Проверить качесвто прогноза
-Предсказание значений на известном наборе данных - in
+9. РџСЂРѕРІРµСЂРёС‚СЊ РєР°С‡РµСЃРІС‚Рѕ РїСЂРѕРіРЅРѕР·Р°
+РџСЂРµРґСЃРєР°Р·Р°РЅРёРµ Р·РЅР°С‡РµРЅРёР№ РЅР° РёР·РІРµСЃС‚РЅРѕРј РЅР°Р±РѕСЂРµ РґР°РЅРЅС‹С… - in
 ```{r}
 data.predict.in <- predict (linear.model.all.half)
 cor (data.in$whole_weight, data.predict.in)
 ```
 
-Предсказание значений на неизвестном наборе данных- out
+РџСЂРµРґСЃРєР°Р·Р°РЅРёРµ Р·РЅР°С‡РµРЅРёР№ РЅР° РЅРµРёР·РІРµСЃС‚РЅРѕРј РЅР°Р±РѕСЂРµ РґР°РЅРЅС‹С…- out
 ```{r}
 cor (data.out$whole_weight, data.predict.out)
 ```
